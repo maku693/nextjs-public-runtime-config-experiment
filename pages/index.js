@@ -1,15 +1,22 @@
 import getConfig from "next/config";
 
-const hello = 
-  getConfig().serverRuntimeConfig.hello ||
-  getConfig().publicRuntimeConfig.hello;
-
-export default function Home({ staticHello }) {
-  return (<>hello: {hello}<br/>staticHello: {staticHello}</>)
+export default function Home({ staticProps }) {
+  return (
+    <>
+      <p>
+        server: <code>{ JSON.stringify(staticProps) }</code>
+      </p>
+      <p>
+        client: <code>{ JSON.stringify(getConfig()) }</code>
+      </p>
+    </>
+  )
 }
 
 export function getStaticProps() {
   return {
-    props: { staticHello: hello }
+    props: {
+      staticProps: getConfig()
+    }
   }
 }
